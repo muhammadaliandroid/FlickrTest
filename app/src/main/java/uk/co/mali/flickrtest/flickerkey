@@ -1,0 +1,9 @@
+Key:
+73d877079d41ac2f289cbf035e7ce9cb
+
+http://api.flickr.com/services/rest/?method=1&api_key=73d877079d41ac2f289cbf035e7ce9cb&tags=london&format=json&per_page=10&media=photos
+failed
+FLICKR_BASE_URL + method_type + APIKEY_SEARCH_STRING + TAGS_STRING + parameter + FORMAT_STRING + "&per_page="+NUMBER_OF_PHOTOS+"&media=photos";
+
+Secret:
+346e4917570a3be0
