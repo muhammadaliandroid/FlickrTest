@@ -27,15 +27,11 @@ public class DataRepository implements IDataRespository{
 
     public Observable<DataEntity> getFlickrItems(String tag){
 
-        Log.d(TAG, tag);
+        Log.d(TAG, "getFlickrItems called: "+tag);
         api= generator.getRestService();
         Observable<Data> data = api.getRestApiData(tag);
 
-
-
-
-
-        Observable<DataEntity> dataEntity = data.map(new Func1<Data, DataEntity>() {
+       Observable<DataEntity> dataEntity = data.map(new Func1<Data, DataEntity>() {
             @Override
             public DataEntity call(Data data) {
                 return Data2EntityMapper.getEntityMapper().getDataEntity(data);
@@ -43,7 +39,11 @@ public class DataRepository implements IDataRespository{
         });
 
 
-       return dataEntity;
+        if(dataEntity!=null) {
+            Log.d(TAG, "getFlickrItems called: dataEntity not null: ");
+
+        }
+        return dataEntity;
 
     }
 }

@@ -1,5 +1,7 @@
 package uk.co.mali.data.net;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,6 +17,8 @@ import uk.co.mali.data.restservice.constants.Constants;
 
 public class RetrofitHelper {
 
+    private final static String TAG = RetrofitHelper.class.getSimpleName();
+
     static RetrofitHelper helper = new RetrofitHelper();
     private RetrofitHelper(){
     }
@@ -24,6 +28,7 @@ public class RetrofitHelper {
     }
 
     Retrofit getRetrofit() {
+        Log.d(TAG, "getRetrofit Called: ");
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
