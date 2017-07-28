@@ -7,11 +7,23 @@
     tools:context="uk.co.mali.flickrtest.view.activity.FlickrListActivity">
 
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_Search"
+        android:hint="Keyword!!"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_Search"
+        android:text="Search"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_ListFlickrImages"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.mali.domain.entity.json.ItemEntity;
-import rx.Observable;
-import rx.subjects.PublishSubject;
 import uk.co.mali.flickrtest.R;
 
 /**
@@ -22,13 +20,11 @@ public class FlickrRecyclerAdapter extends RecyclerView.Adapter<FlickrListViewHo
 
     public final static String TAG = FlickrRecyclerAdapter.class.getSimpleName();
 
-    PublishSubject<Integer> itemClicks = PublishSubject.create();
-
     ArrayList<ItemEntity> List = new ArrayList<>();
+
 
     public void swapAdapter(List<ItemEntity> list) {
         Log.d(TAG, "Recycler Adapter: swapAdapter Called..: " + list.size());
-
         this.List.clear();
         this.List.addAll(list);
         notifyDataSetChanged();
@@ -37,15 +33,12 @@ public class FlickrRecyclerAdapter extends RecyclerView.Adapter<FlickrListViewHo
         }
     }
 
-    public Observable<Integer> observeClicks() {
-        return itemClicks;
-    }
 
     @Override
     public FlickrListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "OnCreateViewHolder called: ");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
-        return new FlickrListViewHolder(view, itemClicks);
+        return new FlickrListViewHolder(view);
     }
 
     @Override

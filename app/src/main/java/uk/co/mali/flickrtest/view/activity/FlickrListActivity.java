@@ -1,12 +1,23 @@
 package uk.co.mali.flickrtest.view.activity;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import co.mali.domain.entity.json.DataEntity;
+import co.mali.domain.entity.json.ItemEntity;
 import uk.co.mali.flickrtest.R;
 import uk.co.mali.flickrtest.presenter.Presenter;
 import uk.co.mali.flickrtest.view.IFlickrView;
+import uk.co.mali.flickrtest.view.adapter.FlickrRecyclerAdapter;
 
 
 /**
@@ -21,6 +32,16 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
     private Presenter presenter;
 
 
+    @BindView(R.id.rv_ListFlickrImages)
+    RecyclerView recyclerView;
+    @BindView(R.id.et_Search)
+    EditText etSearch;
+    @BindView(R.id.btn_Search)
+    Button btnSearch;
+
+    FlickrRecyclerAdapter adapter;
+
+    List<ItemEntity> Item_List = new ArrayList<>();
     @Override
     public int getContentLayout() {
         return R.layout.activity_main;
@@ -43,11 +64,17 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
 
     @Override
     public void showFlickrListInView(DataEntity dataEntity) {
-
-
-
+            Item_List = dataEntity.getItemEntities();
     }
 
+    @OnClick(R.id.btn_Search)
+    public void submit(View view){
+        adapter = new FlickrRecyclerAdapter();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context()));
+        adapter.swapAdapter(Item_List);
+
+       }
 
 }
 

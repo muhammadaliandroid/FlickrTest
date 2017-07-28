@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.mali.domain.entity.json.ItemEntity;
-import rx.subjects.PublishSubject;
 import uk.co.mali.flickrtest.R;
 
 /**
@@ -37,12 +36,11 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
     View viewImageSeperator;
 
 
-    public FlickrListViewHolder(View itemView, PublishSubject<Integer> clickSubject){
+    public FlickrListViewHolder(View itemView){
         super(itemView);
         this.view = itemView;
         ButterKnife.bind(this,view);
-        view.setOnClickListener(v -> clickSubject.onNext(getAdapterPosition())
-        );
+      //  view.setOnClickListener(onClick(view);
     }
 
 
@@ -55,4 +53,6 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
         tvPublishDate.setText("Dated: "+itemEntity.getDateTaken());
         viewImageSeperator.setBackgroundColor(Color.LTGRAY);
     }
+
+
 }
