@@ -2,6 +2,7 @@ package uk.co.mali.flickrtest.view.adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import uk.co.mali.flickrtest.R;
 
 class FlickrListViewHolder extends RecyclerView.ViewHolder {
 
+    private static final String TAG = FlickrListViewHolder.class.getSimpleName();
     View view;
 
     @BindView(R.id.iv_Image)
@@ -28,8 +30,8 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
     TextView tvTitle;
     @BindView(R.id.tv_Author)
     TextView tvAuthor;
-    @BindView(R.id.tv_Description)
-    TextView tvDescription;
+    @BindView(R.id.tv_DateTaken)
+    TextView tvDateTaken;
     @BindView(R.id.tv_DatePublish)
     TextView tvPublishDate;
     @BindView(R.id.view_ImageSeperator)
@@ -45,12 +47,16 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
 
 
     void bind(ItemEntity itemEntity){
-        Glide.with(view.getContext()).load(itemEntity.getLink().toString()).into(image);
 
+        Log.d(TAG,"Item link: "+itemEntity.getLink());
+        Log.d(TAG,"Item Title: "+itemEntity.getTitle());
+
+
+        Glide.with(view.getContext()).load(itemEntity.getMediaEntity().getM().toString()).into(image);
         tvTitle.setText(itemEntity.getTitle());
         tvAuthor.setText("Author: "+ itemEntity.getAuthor());
-        tvDescription.setText(itemEntity.getDescription());
-        tvPublishDate.setText("Dated: "+itemEntity.getDateTaken());
+        tvDateTaken.setText("Date Taken: "+itemEntity.getDateTaken());
+        tvPublishDate.setText("Date Published: "+itemEntity.getPublished());
         viewImageSeperator.setBackgroundColor(Color.LTGRAY);
     }
 
