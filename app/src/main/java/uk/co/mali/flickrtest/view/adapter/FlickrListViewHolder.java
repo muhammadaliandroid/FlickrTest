@@ -1,6 +1,5 @@
 package uk.co.mali.flickrtest.view.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -34,8 +33,6 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
     TextView tvDateTaken;
     @BindView(R.id.tv_DatePublish)
     TextView tvPublishDate;
-    @BindView(R.id.view_ImageSeperator)
-    View viewImageSeperator;
 
 
     public FlickrListViewHolder(View itemView){
@@ -51,13 +48,15 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
         Log.d(TAG,"Item link: "+itemEntity.getLink());
         Log.d(TAG,"Item Title: "+itemEntity.getTitle());
 
+        String title = "Author: "+ itemEntity.getAuthor();
+        String dateTaken = "Date Taken: "+itemEntity.getDateTaken();
+        String datePublish = "Date Published: "+itemEntity.getPublished();
 
         Glide.with(view.getContext()).load(itemEntity.getMediaEntity().getM().toString()).into(image);
         tvTitle.setText(itemEntity.getTitle());
-        tvAuthor.setText("Author: "+ itemEntity.getAuthor());
-        tvDateTaken.setText("Date Taken: "+itemEntity.getDateTaken());
-        tvPublishDate.setText("Date Published: "+itemEntity.getPublished());
-        viewImageSeperator.setBackgroundColor(Color.LTGRAY);
+        tvAuthor.setText(title);
+        tvDateTaken.setText(dateTaken);
+        tvPublishDate.setText(datePublish);
     }
 
 

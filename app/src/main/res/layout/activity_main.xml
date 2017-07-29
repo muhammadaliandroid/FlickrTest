@@ -36,18 +36,18 @@
         android:text="Search"
         />
 
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_ListFlickrImages"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         </android.support.v7.widget.RecyclerView>
 
-    </ScrollView>
+    </LinearLayout>
+
+
+
+
 
 </android.support.constraint.ConstraintLayout>
