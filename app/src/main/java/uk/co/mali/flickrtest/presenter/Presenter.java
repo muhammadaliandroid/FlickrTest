@@ -17,6 +17,9 @@ public class Presenter implements IPresenter {
     private final static String TAG = Presenter.class.getSimpleName();
     private IFlickrView iFlickrView;
     private FlickrUsecase usecase;
+    private String searchByTag;
+
+
     //private ArrayList<ItemEntity> List_Items = new ArrayList<>();
 
     public Presenter(){
@@ -52,7 +55,7 @@ public class Presenter implements IPresenter {
 
     private void getFlickerList(){
         usecase = new FlickrUsecase(AndroidSchedulers.mainThread(), new DataRepository());
-        usecase.getItemEntityFromObservable("Spain", new Subscriber<DataEntity>() {
+        usecase.getItemEntityFromObservable(getSearchByTag(), new Subscriber<DataEntity>() {
             @Override
             public void onCompleted() {
                 Log.d(TAG,"onCompleted");
@@ -80,7 +83,11 @@ public class Presenter implements IPresenter {
     }
 
 
+    public void setTag(String tag) {
+        this.searchByTag = tag;
+    }
 
-
-
+    public String getSearchByTag() {
+        return searchByTag;
+    }
 }

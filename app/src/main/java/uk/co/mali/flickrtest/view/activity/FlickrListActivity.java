@@ -69,10 +69,13 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
 
     @OnClick(R.id.btn_Search)
     public void submit(View view){
+        String tag = String.valueOf(etSearch.getText());
+        presenter.setTag(tag);
         adapter = new FlickrRecyclerAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context()));
         adapter.swapAdapter(Item_List);
+
 
        }
 
