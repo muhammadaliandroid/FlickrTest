@@ -1,21 +1,22 @@
 
-package uk.co.mali.data.model.pojos.json; import com.google.gson.annotations.Expose;
+package uk.co.mali.data.model.pojos.realmobjects; import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-;
+;import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-public class Item  {
+public class ItemRealm extends RealmObject {
 
     @SerializedName("title")
     @Expose
-
+    @PrimaryKey
     private String title;
     @SerializedName("link")
     @Expose
     private String link;
     @SerializedName("media")
     @Expose
-    private Media media;
+    private MediaRealm media;
     @SerializedName("date_taken")
     @Expose
     private String dateTaken;
@@ -35,6 +36,22 @@ public class Item  {
     @Expose
     private String tags;
 
+    public ItemRealm(){
+
+    }
+
+    public ItemRealm(String title, String link, MediaRealm media, String dateTaken, String description, String published, String author, String authorId, String tags) {
+        this.title = title;
+        this.link = link;
+        this.media = media;
+        this.dateTaken = dateTaken;
+        this.description = description;
+        this.published = published;
+        this.author = author;
+        this.authorId = authorId;
+        this.tags = tags;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -51,11 +68,11 @@ public class Item  {
         this.link = link;
     }
 
-    public Media getMedia() {
+    public MediaRealm getMedia() {
         return media;
     }
 
-    public void setMedia(Media media) {
+    public void setMedia(MediaRealm media) {
         this.media = media;
     }
 

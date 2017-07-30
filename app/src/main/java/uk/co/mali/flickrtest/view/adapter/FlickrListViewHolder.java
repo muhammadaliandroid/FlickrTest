@@ -45,8 +45,8 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
 
     void bind(ItemEntity itemEntity){
 
-        Log.d(TAG,"Item link: "+itemEntity.getLink());
-        Log.d(TAG,"Item Title: "+itemEntity.getTitle());
+        Log.d(TAG,"ItemRealm link: "+itemEntity.getLink());
+        Log.d(TAG,"ItemRealm Title: "+itemEntity.getTitle());
 
         String title = "Author: "+ itemEntity.getAuthor();
         String dateTaken = "Date Taken: "+itemEntity.getDateTaken();

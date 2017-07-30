@@ -1,10 +1,10 @@
 
-package uk.co.mali.data.model.pojos.json; ;
-
-import com.google.gson.annotations.Expose;
+package uk.co.mali.data.model.pojos.json; import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Media {
+;
+
+public class Media{
 
     @SerializedName("m")
     @Expose

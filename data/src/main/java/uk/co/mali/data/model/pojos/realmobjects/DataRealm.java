@@ -1,18 +1,21 @@
 
-package uk.co.mali.data.model.pojos.json;
+package uk.co.mali.data.model.pojos.realmobjects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
-public class Data{
+public class DataRealm extends RealmObject {
 
 
 
     @SerializedName("title")
     @Expose
+    @PrimaryKey
     private String title;
     @SerializedName("link")
     @Expose
@@ -26,9 +29,22 @@ public class Data{
     @SerializedName("generator")
     @Expose
     private String generator;
-    @SerializedName("items")
+    @SerializedName("itemRealms")
     @Expose
-    private List<Item> items;
+    private RealmList<ItemRealm> itemRealms;
+
+    public DataRealm(){
+
+    }
+
+    public DataRealm(String title, String link, String description, String modified, String generator, RealmList<ItemRealm> itemRealms) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.modified = modified;
+        this.generator = generator;
+        this.itemRealms = itemRealms;
+    }
 
     public String getTitle() {
         return title;
@@ -70,12 +86,11 @@ public class Data{
         this.generator = generator;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public RealmList<ItemRealm> getItemRealms() {
+        return itemRealms;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItemRealms(RealmList<ItemRealm> itemRealms) {
+        this.itemRealms = itemRealms;
     }
-
 }

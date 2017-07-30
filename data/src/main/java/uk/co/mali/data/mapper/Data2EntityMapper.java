@@ -37,7 +37,7 @@ public class Data2EntityMapper {
 
     public DataEntity getDataEntity(Data data){
         if(data!=null){
-            Log.d(TAG, "getDataEntity(): Data is not Null Called: "+data.getTitle());
+            Log.d(TAG, "getDataEntity(): DataRealm is not Null Called: "+data.getTitle());
 
             dataEntity = new DataEntity();
             dataEntity.setDescription(data.getDescription());
@@ -47,7 +47,7 @@ public class Data2EntityMapper {
             Log.d(TAG, "getDataEntity(): Databinding : dataEntity: "+dataEntity.getTitle());
             }
             else{
-            Log.d(TAG, "getDataEntity(): Data is Null Called : title: ");
+            Log.d(TAG, "getDataEntity(): DataRealm is Null Called : title: ");
 
         }
 
@@ -99,7 +99,7 @@ public class Data2EntityMapper {
 
   public MediaEntity getMediaEntity(Media media){
       if(media!=null){
-          Log.d(TAG, "getItemListEntity(): Media is not Null Called: ");
+          Log.d(TAG, "getItemListEntity(): MediaRealm is not Null Called: ");
           mediaEntity= new MediaEntity();
           mediaEntity.setM(media.getM());
       }

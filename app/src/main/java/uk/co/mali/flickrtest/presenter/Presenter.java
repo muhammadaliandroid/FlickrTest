@@ -68,7 +68,7 @@ public class Presenter implements IPresenter {
 
             @Override
             public void onNext(DataEntity dataEntity) {
-                Log.d(TAG,"Entity Data: "+dataEntity.getTitle());
+                Log.d(TAG,"Entity DataRealm: "+dataEntity.getTitle());
                 Log.d(TAG, "Record: Size: Link: "+dataEntity.getItemEntities().size()+" Items : "+dataEntity.getItemEntities().get(0).getLink());
                 iFlickrView.showFlickrListInView(dataEntity);
 

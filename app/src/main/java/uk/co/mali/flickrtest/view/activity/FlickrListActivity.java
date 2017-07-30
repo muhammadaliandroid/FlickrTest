@@ -26,6 +26,8 @@ import uk.co.mali.flickrtest.view.adapter.FlickrRecyclerAdapter;
 
 public class FlickrListActivity extends BaseActivity implements IFlickrView{
 
+
+
     private final static String TAG = FlickrListActivity.class.getSimpleName();
 
     RecyclerView Flickr_List;
@@ -41,7 +43,14 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
 
     FlickrRecyclerAdapter adapter;
 
+
     List<ItemEntity> Item_List = new ArrayList<>();
+
+    public FlickrListActivity(){
+
+    }
+
+
     @Override
     public int getContentLayout() {
         return R.layout.activity_main;
