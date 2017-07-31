@@ -1,5 +1,6 @@
 package uk.co.mali.flickrtest.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import co.mali.domain.entity.json.ItemEntity;
 import uk.co.mali.flickrtest.R;
+import uk.co.mali.flickrtest.view.activity.FlickrListActivity;
 
 /**
  * Created by alig2 on 28/07/2017.
@@ -21,6 +23,11 @@ public class FlickrRecyclerAdapter extends RecyclerView.Adapter<FlickrListViewHo
     public final static String TAG = FlickrRecyclerAdapter.class.getSimpleName();
 
     ArrayList<ItemEntity> List = new ArrayList<>();
+    private Context context;
+
+    public FlickrRecyclerAdapter(Context context){
+        this.context = context;
+    }
 
 
     public void swapAdapter(List<ItemEntity> list) {
@@ -46,6 +53,15 @@ public class FlickrRecyclerAdapter extends RecyclerView.Adapter<FlickrListViewHo
         Log.d(TAG, "OnCreateViewHolder called: ");
         ItemEntity itemEntity = List.get(position);
         holder.bind(itemEntity);
+
+        holder.setOnListItemClicked(new OnListItemClicked() {
+            @Override
+            public void onListItemClicked(View view, int position) {
+                ((FlickrListActivity) context).startFlickrImageActivity(itemEntity);
+            }
+
+        });
+
 
     }
 

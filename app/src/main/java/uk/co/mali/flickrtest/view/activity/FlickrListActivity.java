@@ -1,8 +1,10 @@
 package uk.co.mali.flickrtest.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +35,7 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
     RecyclerView Flickr_List;
     private Presenter presenter;
     String tag;
+
 
     @BindView(R.id.rv_ListFlickrImages)
     RecyclerView recyclerView;
@@ -87,7 +90,7 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
         }
         tag = String.valueOf(etSearch.getText());
         presenter.setTag(tag);
-        adapter = new FlickrRecyclerAdapter();
+        adapter = new FlickrRecyclerAdapter(context());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context()));
         adapter.swapAdapter(Item_List);
@@ -99,6 +102,20 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+    }
+
+    public void startFlickrImageActivity(ItemEntity itemEntity) {
+
+        Log.d(TAG,"Start FlickrImageActivity" +itemEntity.getAuthor());
+
+        FlickrImage flickrImage = new FlickrImage();
+        flickrImage.setTitle(itemEntity.getTitle());
+        flickrImage.setImageURL(itemEntity.getMediaEntity().getM());
+        flickrImage.setAuthor(itemEntity.getAuthor());
+
+        Intent intent = new Intent(this, FlickrImageActivity.class);
+        intent.putExtra("flickrImage", flickrImage);
+        startActivity(intent);
     }
 }
 

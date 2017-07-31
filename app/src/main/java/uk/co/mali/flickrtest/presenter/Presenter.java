@@ -20,6 +20,7 @@ public class Presenter implements IPresenter {
     private String searchByTag;
 
 
+
     //private ArrayList<ItemEntity> List_Items = new ArrayList<>();
 
     public Presenter(){
@@ -28,6 +29,7 @@ public class Presenter implements IPresenter {
 
     @Override
     public void onCreate() {
+
 
     }
 

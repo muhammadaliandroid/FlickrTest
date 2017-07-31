@@ -18,7 +18,7 @@ import uk.co.mali.flickrtest.R;
  */
 
 
-class FlickrListViewHolder extends RecyclerView.ViewHolder {
+class FlickrListViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
 
     private static final String TAG = FlickrListViewHolder.class.getSimpleName();
     View view;
@@ -34,12 +34,16 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_DatePublish)
     TextView tvPublishDate;
 
+    private OnListItemClicked onListItemClicked;
+
 
     public FlickrListViewHolder(View itemView){
         super(itemView);
         this.view = itemView;
         ButterKnife.bind(this,view);
-      //  view.setOnClickListener(onClick(view);
+        view.setOnClickListener(this);
+
+
     }
 
 
@@ -57,7 +61,17 @@ class FlickrListViewHolder extends RecyclerView.ViewHolder {
         tvAuthor.setText(title);
         tvDateTaken.setText(dateTaken);
         tvPublishDate.setText(datePublish);
+
     }
 
+
+    public void setOnListItemClicked(OnListItemClicked onListItemClicked) {
+        this.onListItemClicked = onListItemClicked;
+    }
+
+    @Override
+    public void onClick(View v) {
+        onListItemClicked.onListItemClicked(v, getAdapterPosition());
+    }
 
 }
