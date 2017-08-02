@@ -4,8 +4,8 @@ import android.util.Log;
 
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.processor.FlickrUsecase;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
 import uk.co.mali.data.repository.DataRepository;
 import uk.co.mali.flickrtest.view.IFlickrView;
 
@@ -36,6 +36,7 @@ public class Presenter implements IPresenter {
     @Override
     public void onResume() {
 
+
     }
 
     @Override
@@ -57,16 +58,7 @@ public class Presenter implements IPresenter {
 
     private void getFlickerList(){
         usecase = new FlickrUsecase(AndroidSchedulers.mainThread(), new DataRepository());
-        usecase.getItemEntityFromObservable(getSearchByTag(), new Subscriber<DataEntity>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG,"onCompleted");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d(TAG, "Error "+e.getMessage());
-            }
+        usecase.getItemEntityFromObservable(getSearchByTag(), new DisposableObserver<DataEntity>(){
 
             @Override
             public void onNext(DataEntity dataEntity) {
@@ -74,6 +66,15 @@ public class Presenter implements IPresenter {
                 Log.d(TAG, "Record: Size: Link: "+dataEntity.getItemEntities().size()+" Items : "+dataEntity.getItemEntities().get(0).getLink());
                 iFlickrView.showFlickrListInView(dataEntity);
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
 
             }
         });

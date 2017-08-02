@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import rx.Observable;
+import io.reactivex.Observable;
 import uk.co.mali.data.mapper.DataRealm2DataMapper;
 import uk.co.mali.data.model.pojos.json.Data;
 import uk.co.mali.data.model.pojos.realmobjects.DataRealm;

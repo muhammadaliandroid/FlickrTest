@@ -1,7 +1,5 @@
 package uk.co.mali.data.net;
 
-import android.util.Log;
-
 import retrofit2.Retrofit;
 import rx.Subscription;
 import uk.co.mali.data.restservice.restapi.RestApi;
@@ -27,7 +25,7 @@ public class NetGenerator {
     }
 
     public RestApi getRestService(){
-        Log.d(TAG, "Service Called: ");
+//        Log.d(TAG, "Service Called: ");
 
 
         Retrofit retrofit = RetrofitHelper.getHelper().getRetrofit();
@@ -35,7 +33,7 @@ public class NetGenerator {
         RestApi service=  retrofit.create(RestApi.class);
 
         if(service!=null) {
-            Log.d(TAG, "getRetrofit Called: service not null ");
+          //  Log.d(TAG, "getRetrofit Called: service not null ");
         }
 
         return service;

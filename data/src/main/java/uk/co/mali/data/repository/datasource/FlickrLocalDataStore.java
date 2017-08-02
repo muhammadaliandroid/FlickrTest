@@ -1,6 +1,6 @@
 package uk.co.mali.data.repository.datasource;
 
-import rx.Observable;
+import io.reactivex.Observable;
 import uk.co.mali.data.cache.IFlickrCache;
 import uk.co.mali.data.model.pojos.json.Data;
 

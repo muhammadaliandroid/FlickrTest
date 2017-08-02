@@ -2,7 +2,7 @@ package co.mali.domain.repository;
 
 
 import co.mali.domain.entity.json.DataEntity;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by alig2 on 27/07/2017.

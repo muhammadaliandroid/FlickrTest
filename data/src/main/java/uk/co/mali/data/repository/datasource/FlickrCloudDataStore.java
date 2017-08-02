@@ -1,8 +1,8 @@
 package uk.co.mali.data.repository.datasource;
 
 
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import uk.co.mali.data.cache.IFlickrCache;
 import uk.co.mali.data.mapper.Data2DataRealmMapper;
 import uk.co.mali.data.model.pojos.json.Data;
@@ -31,9 +31,9 @@ public class FlickrCloudDataStore implements IFlickrDataStore {
 
         Observable dataObservable = service.getRestApiData(tag);
 
-        dataObservable.doOnNext(new Action1<Data>() {
+        dataObservable.doOnNext(new Consumer<Data>() {
             @Override
-            public void call(Data data) {
+            public void accept(Data data) {
                 DataRealm dataRealm = Data2DataRealmMapper.getRealmMapper().getdataRealm(data);
                 cache.put(dataRealm);
             }

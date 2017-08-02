@@ -4,8 +4,8 @@ import android.util.Log;
 
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.repository.IDataRespository;
-import rx.Observable;
-import rx.functions.Func1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import uk.co.mali.data.cache.FlickrCache;
 import uk.co.mali.data.mapper.Data2EntityMapper;
 import uk.co.mali.data.model.pojos.json.Data;
@@ -54,9 +54,9 @@ public class DataRepository implements IDataRespository{
 
         Observable<Data> data = dataStore.getObservableDataFromSource(tag);
 
-        Observable<DataEntity> dataEntity = data.map(new Func1<Data, DataEntity>() {
+        Observable<DataEntity> dataEntity = data.map(new Function<Data, DataEntity>() {
             @Override
-            public DataEntity call(Data data) {
+            public DataEntity apply(Data data) {
                 return Data2EntityMapper.getEntityMapper().getDataEntity(data);
             }
         });

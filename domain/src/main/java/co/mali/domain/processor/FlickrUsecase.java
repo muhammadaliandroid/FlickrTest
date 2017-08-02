@@ -4,9 +4,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import co.mali.domain.repository.IDataRespository;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
+import io.reactivex.Scheduler;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by alig2 on 27/07/2017.
@@ -33,11 +33,11 @@ public class FlickrUsecase{
 
 
 
-    public void getItemEntityFromObservable(String tag, Subscriber subscriber) {
+    public void getItemEntityFromObservable(String tag, DisposableObserver observer) {
 
         respository.getFlickrItems(tag).subscribeOn(internetScheduler)
                 .observeOn(scheduler)
-                .subscribe(subscriber);
+                .subscribe(observer);
 
 
 

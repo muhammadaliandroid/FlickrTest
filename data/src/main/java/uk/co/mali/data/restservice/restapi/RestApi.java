@@ -2,7 +2,7 @@ package uk.co.mali.data.restservice.restapi;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
+import io.reactivex.Observable;
 import uk.co.mali.data.restservice.constants.Constants;
 import uk.co.mali.data.model.pojos.json.Data;
 
