@@ -1,7 +1,5 @@
 package uk.co.mali.data.repository;
 
-import android.util.Log;
-
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.repository.IDataRespository;
 import io.reactivex.Observable;
@@ -31,14 +29,8 @@ public class DataRepository implements IDataRespository{
 
     public Observable<DataEntity> getFlickrItems(String tag){
 
-        Log.d(TAG, "getFlickrItems called: "+tag);
-        //api= generator.getRestService();
+        //Log.d(TAG, "getFlickrItems called: "+tag);
 
-
-        //FlickrCloudDataStore dataStore = new FlickrCloudDataStore(new FlickrCache());
-
-
-        //Observable<DataRealm> data = api.getRestApiData(tag);
 
         IFlickrDataStore dataStore;
 
@@ -63,7 +55,7 @@ public class DataRepository implements IDataRespository{
 
 
         if(dataEntity!=null) {
-            Log.d(TAG, "getFlickrItems called: dataEntity not null: ");
+          //  Log.d(TAG, "getFlickrItems called: dataEntity not null: ");
 
         }
         return dataEntity;

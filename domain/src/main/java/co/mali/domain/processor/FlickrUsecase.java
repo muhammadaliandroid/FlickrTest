@@ -20,7 +20,7 @@ public class FlickrUsecase{
     public static Executor internetExecutor = Executors.newCachedThreadPool();
     public static Scheduler internetScheduler = Schedulers.from(internetExecutor);
 
-    IDataRespository respository;
+    private IDataRespository respository;
 
  //   AppListener listener;
 

@@ -1,4 +1,4 @@
-package uk.co.mali.flickrtest;
+package uk.co.mali.data;
 
 import org.junit.Test;
 
@@ -24,5 +24,5 @@ public class FlickrTestObservable {
         testObserver.assertSubscribed();
     }
 
-    
+
 }
