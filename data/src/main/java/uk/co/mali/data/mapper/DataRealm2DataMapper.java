@@ -1,5 +1,7 @@
 package uk.co.mali.data.mapper;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import uk.co.mali.data.model.pojos.json.Media;
 import uk.co.mali.data.model.pojos.realmobjects.DataRealm;
 import uk.co.mali.data.model.pojos.realmobjects.ItemRealm;
 import uk.co.mali.data.model.pojos.realmobjects.MediaRealm;
+import uk.co.mali.data.util.KeyGeneratorService;
 
 /**
  * Created by alig2 on 30/07/2017.
@@ -35,6 +38,7 @@ public class DataRealm2DataMapper {
         return dataMapper;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public Data getdataRealm(DataRealm dataRealm){
         if(data!=null){
             Log.d(TAG, "getdataRealm(): DataRealm is not Null Called: "+data.getTitle());
@@ -59,6 +63,7 @@ public class DataRealm2DataMapper {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public List<ItemRealm> getItemList(List<ItemRealm> itemListRealm){
         if(itemList!=null){
             itemList= new ArrayList<>();
@@ -74,6 +79,7 @@ public class DataRealm2DataMapper {
         return itemListRealm;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     Item getItem(ItemRealm itemRealm) {
 
         if(itemRealm!=null) {
@@ -99,11 +105,14 @@ public class DataRealm2DataMapper {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public Media getMedia(MediaRealm mediaRealm){
         if(media!=null){
             Log.d(TAG, "getItemListRealm(): MediaRealm is not Null Called: ");
             media= new Media();
-            media.setM(mediaRealm.getM());
+            String decryptString = KeyGeneratorService.getService().decrypttMessage(mediaRealm.getM());
+            Log.d(TAG,"Decrypt String: "+decryptString);
+            media.setM(decryptString);
         }
         return media;
     }

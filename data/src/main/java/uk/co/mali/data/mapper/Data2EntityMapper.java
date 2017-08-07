@@ -1,5 +1,7 @@
 package uk.co.mali.data.mapper;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class Data2EntityMapper {
         return entityMapper;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public DataEntity getDataEntity(Data data){
         if(data!=null){
             Log.d(TAG, "getDataEntity(): DataRealm is not Null Called: "+data.getTitle());
@@ -57,6 +60,7 @@ public class Data2EntityMapper {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public List<ItemEntity> getItemListEntity(List<Item> itemList){
         if(itemList!=null){
              itemListEntity = new ArrayList<>();
@@ -72,6 +76,7 @@ public class Data2EntityMapper {
         return itemListEntity;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     ItemEntity getItemEntity(Item item) {
 
         if(item!=null) {
@@ -97,8 +102,10 @@ public class Data2EntityMapper {
 
 
 
+  @RequiresApi(api = Build.VERSION_CODES.M)
   public MediaEntity getMediaEntity(Media media){
       if(media!=null){
+
           Log.d(TAG, "getItemListEntity(): MediaRealm is not Null Called: ");
           mediaEntity= new MediaEntity();
           mediaEntity.setM(media.getM());
