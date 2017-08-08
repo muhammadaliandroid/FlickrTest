@@ -35,7 +35,8 @@ public class FlickrUsecase{
 
     public void getItemEntityFromObservable(String tag, DisposableObserver observer) {
 
-        respository.getFlickrItems(tag).subscribeOn(internetScheduler)
+        respository.getFlickrItems(tag)
+                .subscribeOn(internetScheduler)
                 .observeOn(scheduler)
                 .subscribe(observer);
 

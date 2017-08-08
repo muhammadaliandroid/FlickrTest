@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
 import uk.co.mali.data.model.pojos.json.Data;
 import uk.co.mali.data.model.pojos.json.Item;
 import uk.co.mali.data.model.pojos.json.Media;
@@ -37,42 +38,39 @@ public class DataRealm2DataMapper {
     }
 
     public Data getdataRealm(DataRealm dataRealm){
-        if(data!=null){
-            Log.d(TAG, "getdataRealm(): DataRealm is not Null Called: "+data.getTitle());
+        if(dataRealm!=null){
+            Log.d(TAG, "getdataRealm(): DataRealm is not Null Called: "+dataRealm.getTitle());
 
             data= new Data();
             data.setDescription(dataRealm.getDescription());
             data.setGenerator(dataRealm.getGenerator());
-            data.setItems((List)getItemList(dataRealm.getItemRealms()));
+            data.setItems(getItemList(dataRealm.getItemRealms()));
 
             //        dataRealm.setItemRealms(getItemListRealm(data.getItems()));
             data.setTitle(dataRealm.getTitle());
-            Log.d(TAG, "getdataRealm(): Databinding : dataRealm: "+data.getTitle());
+            Log.d(TAG, "getdataRealm(): Databinding : dataRealm: "+dataRealm.getTitle());
         }
         else{
-            Log.d(TAG, "getdataRealm(): Data is Null Called : title: ");
+
 
         }
 
-        Log.d(TAG, "getdataRealm(): Databinding : dataRealm: "+data.getTitle());
 
         return data;
     }
 
 
-    public List<ItemRealm> getItemList(List<ItemRealm> itemListRealm){
-        if(itemList!=null){
+    public List<Item> getItemList(RealmList<ItemRealm> itemListRealm){
+        if(itemListRealm!=null){
             itemList= new ArrayList<>();
 
-            Log.d(TAG, "getItemList(): Itemlist is not Null Called: ");
-
-            for(int i=0; i<itemList.size();i++){
+            for(int i=0; i<itemListRealm.size();i++){
                 itemList.add(i,getItem(itemListRealm.get(i)));
             }
             Log.d(TAG, "getItemList Itemlist Size: "+itemList.size());
 
         }
-        return itemListRealm;
+        return itemList;
     }
 
     Item getItem(ItemRealm itemRealm) {
@@ -93,7 +91,6 @@ public class DataRealm2DataMapper {
 
 
         }
-        Log.d(TAG, "getItemListRealm(): ItemRealm: "+item.toString());
 
         return item;
     }
@@ -101,7 +98,7 @@ public class DataRealm2DataMapper {
 
 
     public Media getMedia(MediaRealm mediaRealm){
-        if(media!=null){
+        if(mediaRealm!=null){
             Log.d(TAG, "getItemListRealm(): MediaRealm is not Null Called: ");
             media= new Media();
       //      String decryptString = KeyGeneratorService.getService().decrypttMessage(mediaRealm.getM());

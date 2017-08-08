@@ -3,12 +3,12 @@ package uk.co.mali.data.repository.datasource;
 
 import android.util.Log;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
+import io.reactivex.Scheduler;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import uk.co.mali.data.cache.IFlickrCache;
 import uk.co.mali.data.mapper.Data2DataRealmMapper;
@@ -24,8 +24,15 @@ import uk.co.mali.data.restservice.restapi.RestApi;
 public class FlickrCloudDataStore implements IFlickrDataStore {
 
 
+    public static Executor internetExecutor = Executors.newCachedThreadPool();
+    public static Scheduler internetScheduler = Schedulers.from(internetExecutor);
+
     private IFlickrCache cache;
 
+    private Scheduler scheduler1 = Schedulers.from(Executors.newCachedThreadPool());
+    private Scheduler scheduler2 = Schedulers.newThread();
+
+    public Data2DataRealmMapper mapper = Data2DataRealmMapper.getRealmMapper();
     public FlickrCloudDataStore(IFlickrCache cache){
         this.cache = cache;
     }
@@ -33,69 +40,23 @@ public class FlickrCloudDataStore implements IFlickrDataStore {
 
     @Override
     public Observable<Data> getObservableDataFromSource(String tag) {
-
         RestApi service = NetGenerator.getGenerator().getRestService();
 
-        Observable<Data> dataObservable = service.getRestApiData(tag);
-       // Observer<Data> dataObserver = getObserver();
-       // dataObservable.subscribe(dataObserver);
+        final Observable<Data> dataObservable = service.getRestApiData(tag);
+        if(dataObservable!=null){
+            doNext(dataObservable);
+        }
 
-        dataObservable
-                .observeOn(Schedulers.from(Executors.newCachedThreadPool()))
-                .map(new Function<Data, Boolean>() {
-                    @Override
-                    public Boolean apply(Data data) throws Exception {
-
-                        DataRealm dataRealm = Data2DataRealmMapper.getRealmMapper().getdataRealm(data);
-                        Log.d("Consumer Accept", "Realm Data from Consumer : "+dataRealm.getTitle());
-                        cache.put(dataRealm);
-
-                        return true ;
-                    }
-                });
-
-/*
-        dataObservable.subscribeWith(new Observer<Data>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(Data data) {
-                DataRealm dataRealm = Data2DataRealmMapper.getRealmMapper().getdataRealm(data);
-                Log.d("Consumer Accept", "Realm Data from Consumer : "+dataRealm.getTitle());
-                cache.put(dataRealm);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-
-
-        });
-*/
         return dataObservable;
     }
 
+    private void doNext(Observable<Data> dataObservable) {
 
-    public Observer<Data> getObserver(){
-        return new Observer<Data>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
+       DisposableObserver<Data> do1 = new DisposableObserver<Data>() {
             @Override
             public void onNext(Data data) {
-                DataRealm dataRealm = Data2DataRealmMapper.getRealmMapper().getdataRealm(data);
-                Log.d("Dat", "Realm Data from Consumer : "+dataRealm.getTitle());
+                Log.d("Function", "Apply Method Called: ");
+                DataRealm dataRealm = mapper.getdataRealm(data);
                 cache.put(dataRealm);
 
             }
@@ -103,16 +64,22 @@ public class FlickrCloudDataStore implements IFlickrDataStore {
             @Override
             public void onError(Throwable e) {
 
-                Log.e("Error Cache",e.getMessage());
-
+                Log.e("Error","E @ "+e.getLocalizedMessage()+"  Stack trace: "+e.getStackTrace());
             }
 
             @Override
             public void onComplete() {
-
-                Log.d("Complete Cache","completed");
+                Log.d("Complete","Complete");
             }
         };
+
+        dataObservable.subscribeOn(scheduler1)
+        .observeOn(Schedulers.io())
+        .subscribe(do1);
+
+
+
+
     }
 
 

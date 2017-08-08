@@ -64,7 +64,7 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
 
         presenter = new Presenter();
         presenter.setFlickrView(this);
-        presenter.initialize();
+       // presenter.initialize();
 
     }
 
@@ -78,18 +78,16 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
     public void showFlickrListInView(DataEntity dataEntity) {
 
             Item_List = dataEntity.getItemEntities();
+            adapter.swapAdapter(Item_List);
+
 
     }
 
     @OnClick(R.id.btn_Search)
     public void submit(View view) {
-        presenter.initialize();
-
-        if (tag != null) {
-            tag = null;
-        }
-        tag = String.valueOf(etSearch.getText());
-        presenter.setTag(tag);
+        tag = etSearch.getText().toString();
+        //presenter.getSearchByTag();
+        presenter.initialize(tag);
         adapter = new FlickrRecyclerAdapter(context());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context()));

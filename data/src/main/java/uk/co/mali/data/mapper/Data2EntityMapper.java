@@ -1,7 +1,5 @@
 package uk.co.mali.data.mapper;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -38,7 +36,6 @@ public class Data2EntityMapper {
         return entityMapper;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public DataEntity getDataEntity(Data data){
         if(data!=null){
             Log.d(TAG, "getDataEntity(): Data is not Null Called: "+data.getTitle());

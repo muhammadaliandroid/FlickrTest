@@ -1,7 +1,5 @@
 package uk.co.mali.flickrtest.presenter;
 
-import android.util.Log;
-
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.processor.FlickrUsecase;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,9 +60,10 @@ public class Presenter implements IPresenter {
 
             @Override
             public void onNext(DataEntity dataEntity) {
-                Log.d(TAG,"Entity DataRealm: "+dataEntity.getTitle());
-                Log.d(TAG, "Record: Size: Link: "+dataEntity.getItemEntities().size()+" Items : "+dataEntity.getItemEntities().get(0).getLink());
+                //Log.d(TAG,"Entity DataRealm: "+dataEntity.getTitle());
+                //Log.d(TAG, "Record: Size: Link: "+dataEntity.getItemEntities().size()+" Items : "+dataEntity.getItemEntities().get(0).getLink());
                 iFlickrView.showFlickrListInView(dataEntity);
+
 
             }
 
@@ -80,9 +79,9 @@ public class Presenter implements IPresenter {
         });
     }
 
-    public void initialize(){
-        this.getFlickerList();
-
+    public void initialize(String tag){
+            setTag(tag);
+            getFlickerList();
     }
 
 
@@ -93,4 +92,7 @@ public class Presenter implements IPresenter {
     public String getSearchByTag() {
         return searchByTag;
     }
+
+
 }
+

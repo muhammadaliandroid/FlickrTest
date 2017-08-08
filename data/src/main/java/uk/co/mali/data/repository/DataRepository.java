@@ -1,7 +1,5 @@
 package uk.co.mali.data.repository;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import co.mali.domain.entity.json.DataEntity;
@@ -30,7 +28,7 @@ public class DataRepository implements IDataRespository{
 
     public Observable<DataEntity> getFlickrItems(String tag){
 
-        Log.d(TAG, "getFlickrItems called: "+tag);
+        Log.d(TAG, "getFlickrItems called: "+ tag);
 
 
         IFlickrDataStore dataStore;
@@ -43,7 +41,6 @@ public class DataRepository implements IDataRespository{
         }
         Observable<Data> data = dataStore.getObservableDataFromSource(tag);
         Observable<DataEntity> dataEntity = data.map(new Function<Data, DataEntity>() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public DataEntity apply(Data data) {
                 return Data2EntityMapper.getEntityMapper().getDataEntity(data);

@@ -2,7 +2,6 @@ package uk.co.mali.data.mapper;
 
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.RealmList;
@@ -63,7 +62,7 @@ public class Data2DataRealmMapper {
 
     public List<ItemRealm> getItemListRealm(List<Item> itemList){
         if(itemList!=null){
-            itemListRealm= new ArrayList<>();
+            itemListRealm= new RealmList<>();
 
             Log.d(TAG, "getItemListRealm(): Itemlist is not Null Called: ");
 

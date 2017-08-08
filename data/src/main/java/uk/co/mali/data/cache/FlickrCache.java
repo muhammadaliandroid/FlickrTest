@@ -21,7 +21,7 @@ import uk.co.mali.data.model.pojos.realmobjects.DataRealm;
 
 public class FlickrCache implements IFlickrCache {
 
-    private static final long EXPIRATION_TIME = 60000;
+    private static final long EXPIRATION_TIME = 6000;
 
     @Override
     public boolean isExpired() {
@@ -30,9 +30,15 @@ public class FlickrCache implements IFlickrCache {
             Date currentTime = new Date(System.currentTimeMillis());
             SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
             Date lastUpdated = null;
+            long count = 0;
+            boolean isExpired = false;
             try {
-                lastUpdated = ISO8601DATEFORMAT.parse(realm.where(DataRealm.class).findFirst().getModified());
-                boolean isExpired = currentTime.getTime() - lastUpdated.getTime() > EXPIRATION_TIME;
+                count = (int) realm.where(DataRealm.class).count();
+                if(count>1) {
+                    lastUpdated = ISO8601DATEFORMAT.parse(realm.where(DataRealm.class).findFirst().getModified());
+                    isExpired = currentTime.getTime() - lastUpdated.getTime() > EXPIRATION_TIME;
+                }
+
                 if(isExpired){
                     realm.beginTransaction();
                     realm.delete(DataRealm.class);
