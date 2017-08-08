@@ -1,5 +1,9 @@
 package uk.co.mali.data.repository;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
+
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.repository.IDataRespository;
 import io.reactivex.Observable;
@@ -24,29 +28,22 @@ public class DataRepository implements IDataRespository{
     NetGenerator generator = NetGenerator.getGenerator();
     RestApi api;
 
-
-
-
     public Observable<DataEntity> getFlickrItems(String tag){
 
-        //Log.d(TAG, "getFlickrItems called: "+tag);
+        Log.d(TAG, "getFlickrItems called: "+tag);
 
 
         IFlickrDataStore dataStore;
 
         if(checkCacheExpired(new FlickrCache())){
            dataStore =  new FlickrLocalDataStore(new FlickrCache());
-
         }
-
         else {
            dataStore = new FlickrCloudDataStore(new FlickrCache());
-
         }
-
         Observable<Data> data = dataStore.getObservableDataFromSource(tag);
-
         Observable<DataEntity> dataEntity = data.map(new Function<Data, DataEntity>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public DataEntity apply(Data data) {
                 return Data2EntityMapper.getEntityMapper().getDataEntity(data);

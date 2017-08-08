@@ -22,6 +22,8 @@ public class Encryptor {
 
     public static String encryptString(final String ALIAS_KEY, String message, KeyStore keyStore) {
 
+        Log.d(TAG, "Encrypted String Started");
+
         String encryptedString = null;
         try {
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(ALIAS_KEY, null);
@@ -46,6 +48,7 @@ public class Encryptor {
             //  String m = Base64.encodeToString(vals,Base64.DEFAULT);
 
            encryptedString = (Base64.encodeToString(vals,Base64.DEFAULT));
+            Log.d(TAG, "Encrypted String : "+encryptedString);
 
 
         } catch (Exception e) {

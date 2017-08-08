@@ -34,6 +34,8 @@ public class KeyGeneratorService {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private KeyGeneratorService(){
+        Log.d(TAG, "Constructor ");
+
         init();
     }
 
@@ -95,11 +97,13 @@ public class KeyGeneratorService {
     }
 
     public String encryptMessage(String message){
+        Log.d(TAG, "Encrypt Message Called:");
         return Encryptor.encryptString(ALIAS_KEY,message,keyStore);
     }
 
 
     public String decrypttMessage(String message){
+        Log.d(TAG, "Decrypt Message Called:");
         return Decryptor.decryptString(ALIAS_KEY,message,keyStore);
     }
 

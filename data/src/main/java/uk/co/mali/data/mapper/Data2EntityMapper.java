@@ -21,7 +21,7 @@ import uk.co.mali.data.model.pojos.json.Media;
 public class Data2EntityMapper {
 
 
-    private static final String TAG = Data2EntityMapper.class.getSimpleName();
+    private static final String TAG = "DATA to ENTITY";
     DataEntity dataEntity;
     List<ItemEntity> itemListEntity;
     MediaEntity mediaEntity;
@@ -30,6 +30,7 @@ public class Data2EntityMapper {
 
     static Data2EntityMapper entityMapper = new Data2EntityMapper();
     private Data2EntityMapper(){
+        Log.d(TAG,"Constructor");
 
     }
 
@@ -40,7 +41,7 @@ public class Data2EntityMapper {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public DataEntity getDataEntity(Data data){
         if(data!=null){
-            Log.d(TAG, "getDataEntity(): DataRealm is not Null Called: "+data.getTitle());
+            Log.d(TAG, "getDataEntity(): Data is not Null Called: "+data.getTitle());
 
             dataEntity = new DataEntity();
             dataEntity.setDescription(data.getDescription());
@@ -50,7 +51,7 @@ public class Data2EntityMapper {
             Log.d(TAG, "getDataEntity(): Databinding : dataEntity: "+dataEntity.getTitle());
             }
             else{
-            Log.d(TAG, "getDataEntity(): DataRealm is Null Called : title: ");
+            Log.d(TAG, "getDataEntity(): Data is Null Called : title: ");
 
         }
 
@@ -60,7 +61,6 @@ public class Data2EntityMapper {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public List<ItemEntity> getItemListEntity(List<Item> itemList){
         if(itemList!=null){
              itemListEntity = new ArrayList<>();
@@ -76,7 +76,6 @@ public class Data2EntityMapper {
         return itemListEntity;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     ItemEntity getItemEntity(Item item) {
 
         if(item!=null) {
@@ -102,13 +101,13 @@ public class Data2EntityMapper {
 
 
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
   public MediaEntity getMediaEntity(Media media){
       if(media!=null){
 
-          Log.d(TAG, "getItemListEntity(): MediaRealm is not Null Called: ");
+          Log.d(TAG, "getItemListEntity(): Media is not Null Called: ");
           mediaEntity= new MediaEntity();
           mediaEntity.setM(media.getM());
+
       }
       return mediaEntity;
   }

@@ -1,6 +1,8 @@
 package uk.co.mali.data.cache;
 
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +21,7 @@ import uk.co.mali.data.model.pojos.realmobjects.DataRealm;
 
 public class FlickrCache implements IFlickrCache {
 
-    private static final long EXPIRATION_TIME = 60*10*1000;
+    private static final long EXPIRATION_TIME = 60000;
 
     @Override
     public boolean isExpired() {
@@ -64,6 +66,7 @@ public class FlickrCache implements IFlickrCache {
 
     @Override
     public void put(DataRealm flickrDataRealm) {
+        Log.d("CACHE","Realm Data");
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(flickrDataRealm);

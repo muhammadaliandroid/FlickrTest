@@ -20,6 +20,7 @@ public class Decryptor {
     private static final String TAG = Decryptor.class.getSimpleName();
 
     public static String decryptString(final String ALIAS_KEY, String message, KeyStore keyStore){
+        Log.d(TAG, "Dycrypt String started!.. ");
 
         String finalText = null;
         try {
@@ -46,8 +47,10 @@ public class Decryptor {
             }
 
              finalText= new String(bytes,0,bytes.length,"UTF-8");
+            Log.d(TAG, "Encrypted String : "+finalText);
 
-          //  mDecryptText.setText(finalText);
+
+            //  mDecryptText.setText(finalText);
 
         } catch (Exception e) {
         //    Toast.makeText(this, "Exception " + e.getMessage() + " occured", Toast.LENGTH_LONG).show();
