@@ -4,6 +4,8 @@ package uk.co.mali.data.model.pojos.realmobjects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -32,6 +34,8 @@ public class DataRealm extends RealmObject {
     @SerializedName("itemRealms")
     @Expose
     private RealmList<ItemRealm> itemRealms;
+
+    private Date createTime;
 
     public DataRealm(){
 
@@ -92,5 +96,13 @@ public class DataRealm extends RealmObject {
 
     public void setItemRealms(RealmList<ItemRealm> itemRealms) {
         this.itemRealms = itemRealms;
+    }
+
+    public void setCreateTime(Date date) {
+        this.createTime = date;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
     }
 }

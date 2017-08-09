@@ -1,16 +1,15 @@
 package uk.co.mali.data.cache;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
+import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.reactivex.Observable;
 import uk.co.mali.data.mapper.DataRealm2DataMapper;
 import uk.co.mali.data.model.pojos.json.Data;
 import uk.co.mali.data.model.pojos.realmobjects.DataRealm;
@@ -28,15 +27,17 @@ public class FlickrCache implements IFlickrCache {
         Realm realm = Realm.getDefaultInstance();
         if (realm.where(DataRealm.class).count() != 0) {
             Date currentTime = new Date(System.currentTimeMillis());
-            SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
+           //SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
             Date lastUpdated = null;
             long count = 0;
             boolean isExpired = false;
             try {
                 count = (int) realm.where(DataRealm.class).count();
-                if(count>1) {
-                    lastUpdated = ISO8601DATEFORMAT.parse(realm.where(DataRealm.class).findFirst().getModified());
+                if(count>0) {
+                    lastUpdated = realm.where(DataRealm.class).findFirst().getCreateTime();
+                   // lastUpdated = ISO8601DATEFORMAT.parse(timeRealm);
                     isExpired = currentTime.getTime() - lastUpdated.getTime() > EXPIRATION_TIME;
+                    Log.d("CACHE", "isExpired: "+isExpired);
                 }
 
                 if(isExpired){
@@ -46,7 +47,7 @@ public class FlickrCache implements IFlickrCache {
                     realm.close();
                 }
                 return isExpired;
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -61,6 +62,7 @@ public class FlickrCache implements IFlickrCache {
                 && realm.where(DataRealm.class).findAll().size()>0;
         }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public Observable<Data> get() {
         Realm realm = Realm.getDefaultInstance();
@@ -71,10 +73,12 @@ public class FlickrCache implements IFlickrCache {
     }
 
     @Override
-    public void put(DataRealm flickrDataRealm) {
+    public void put(DataRealm flickrDataRealm){
         Log.d("CACHE","Realm Data");
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
+        Date createDate = new Date(System.currentTimeMillis());
+        flickrDataRealm.setCreateTime(createDate);
         realm.copyToRealmOrUpdate(flickrDataRealm);
         realm.commitTransaction();
         realm.close();

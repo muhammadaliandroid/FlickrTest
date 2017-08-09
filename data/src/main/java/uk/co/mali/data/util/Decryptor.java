@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.security.KeyStore;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.PrivateKey;
 import java.util.ArrayList;
 
 import javax.crypto.Cipher;
@@ -20,13 +20,13 @@ public class Decryptor {
     private static final String TAG = Decryptor.class.getSimpleName();
 
     public static String decryptString(final String ALIAS_KEY, String message, KeyStore keyStore){
-        Log.d(TAG, "Dycrypt String started!.. ");
+        Log.d(TAG, "Dycrypt String started!.. "+message);
 
         String finalText = null;
         try {
             KeyStore.PrivateKeyEntry privateKeyEntry= (KeyStore.PrivateKeyEntry) keyStore.getEntry(ALIAS_KEY,null);
-            RSAPrivateKey privateKey = (RSAPrivateKey) privateKeyEntry.getPrivateKey();
-            Cipher output = Cipher.getInstance("RSA/ECB/PKCS1Padding", "AndroidOpenSSL");
+            PrivateKey privateKey = privateKeyEntry.getPrivateKey();
+            Cipher output = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             output.init(Cipher.DECRYPT_MODE, privateKey);
 
             //String cipherText = message;

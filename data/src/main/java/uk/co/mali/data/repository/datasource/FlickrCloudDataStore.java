@@ -1,8 +1,11 @@
 package uk.co.mali.data.repository.datasource;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -21,6 +24,7 @@ import uk.co.mali.data.restservice.restapi.RestApi;
  * Created by alig2 on 30/07/2017.
  */
 
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class FlickrCloudDataStore implements IFlickrDataStore {
 
 
@@ -57,7 +61,11 @@ public class FlickrCloudDataStore implements IFlickrDataStore {
             public void onNext(Data data) {
                 Log.d("Function", "Apply Method Called: ");
                 DataRealm dataRealm = mapper.getdataRealm(data);
-                cache.put(dataRealm);
+                try {
+                    cache.put(dataRealm);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
             }
 

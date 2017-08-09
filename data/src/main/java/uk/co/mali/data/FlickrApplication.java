@@ -18,6 +18,7 @@ public class FlickrApplication extends Application {
 
         RealmConfiguration config = new RealmConfiguration.
                 Builder().
+                deleteRealmIfMigrationNeeded().
                 build();
         Realm.setDefaultConfiguration(config);
 

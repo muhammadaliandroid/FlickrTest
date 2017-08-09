@@ -1,5 +1,7 @@
 package uk.co.mali.data.cache;
 
+import java.text.ParseException;
+
 import io.reactivex.Observable;
 import uk.co.mali.data.model.pojos.json.Data;
 import uk.co.mali.data.model.pojos.realmobjects.DataRealm;
@@ -13,7 +15,7 @@ public interface IFlickrCache {
     boolean isExpired();
     boolean isCached();
     Observable<Data> get();
-    void put(DataRealm flickrDataRealm);
+    void put(DataRealm flickrDataRealm) throws ParseException;
 
 
 }

@@ -1,5 +1,7 @@
 package uk.co.mali.data.repository;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import co.mali.domain.entity.json.DataEntity;
@@ -26,6 +28,7 @@ public class DataRepository implements IDataRespository{
     NetGenerator generator = NetGenerator.getGenerator();
     RestApi api;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public Observable<DataEntity> getFlickrItems(String tag){
 
         Log.d(TAG, "getFlickrItems called: "+ tag);

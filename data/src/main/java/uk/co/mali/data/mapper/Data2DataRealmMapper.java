@@ -1,5 +1,7 @@
 package uk.co.mali.data.mapper;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.util.List;
@@ -11,11 +13,13 @@ import uk.co.mali.data.model.pojos.json.Media;
 import uk.co.mali.data.model.pojos.realmobjects.DataRealm;
 import uk.co.mali.data.model.pojos.realmobjects.ItemRealm;
 import uk.co.mali.data.model.pojos.realmobjects.MediaRealm;
+import uk.co.mali.data.util.KeyGeneratorService;
 
 /**
  * Created by alig2 on 30/07/2017.
  */
 
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class Data2DataRealmMapper {
 
     private static final String TAG = "DATA to REALM";
@@ -24,6 +28,8 @@ public class Data2DataRealmMapper {
     List<ItemRealm> itemListRealm;
     MediaRealm mediaRealm;
     ItemRealm itemRealm;
+    KeyGeneratorService service = KeyGeneratorService.getService();
+
 
 
     static Data2DataRealmMapper realmMapper = new Data2DataRealmMapper();
@@ -104,10 +110,10 @@ public class Data2DataRealmMapper {
         if(media!=null){
             Log.d(TAG, "getItemListRealm(): MediaRealm is not Null Called: ");
             mediaRealm= new MediaRealm();
-         //   String encryptMessage=KeyGeneratorService.getService().encryptMessage(media.getM());
-          //  Log.d(TAG,"Encrypt String: "+encryptMessage);
+            String encryptMessage=service.encryptMessage(media.getM());
+            Log.d(TAG,"Encrypt String: "+encryptMessage);
 
-            mediaRealm.setM(media.getM());
+            mediaRealm.setM(encryptMessage);
         }
         return mediaRealm;
     }
