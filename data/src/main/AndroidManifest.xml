@@ -3,7 +3,9 @@
     package="uk.co.mali.dataEntity">
 
     <application
-        android:allowBackup="true" android:label="@string/app_name"
+        android:name="uk.co.mali.data.FlickrApplication"
+        android:allowBackup="true"
+        android:label="@string/app_name"
         android:supportsRtl="true">
 
     </application>

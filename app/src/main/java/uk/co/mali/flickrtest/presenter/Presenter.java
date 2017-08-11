@@ -1,5 +1,7 @@
 package uk.co.mali.flickrtest.presenter;
 
+import android.util.Log;
+
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.processor.FlickrUsecase;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,6 +22,7 @@ public class Presenter implements IPresenter {
 
 
     //private ArrayList<ItemEntity> List_Items = new ArrayList<>();
+
 
     public Presenter(){
 
@@ -69,14 +72,18 @@ public class Presenter implements IPresenter {
 
             @Override
             public void onError(Throwable e) {
+                Log.e(TAG,"Error: e: "+e.getMessage());
 
             }
 
             @Override
             public void onComplete() {
 
+                Log.d(TAG,"Completed Observer");
+
             }
         });
+
     }
 
     public void initialize(String tag){

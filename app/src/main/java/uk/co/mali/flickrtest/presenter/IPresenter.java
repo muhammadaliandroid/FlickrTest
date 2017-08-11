@@ -10,4 +10,4 @@ public interface IPresenter {
     public void onResume();
     public void onPause();
     public void onDestroy();
-}
+    }

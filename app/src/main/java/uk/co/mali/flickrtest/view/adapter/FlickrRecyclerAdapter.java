@@ -51,7 +51,7 @@ public class FlickrRecyclerAdapter extends RecyclerView.Adapter<FlickrListViewHo
     @Override
     public void onBindViewHolder(FlickrListViewHolder holder, int position) {
         Log.d(TAG, "OnCreateViewHolder called: ");
-        ItemEntity itemEntity = List.get(position);
+        final ItemEntity itemEntity = List.get(position);
         holder.bind(itemEntity);
 
         holder.setOnListItemClicked(new OnListItemClicked() {

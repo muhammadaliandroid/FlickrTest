@@ -12,11 +12,16 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import co.mali.domain.entity.json.DataEntity;
 import co.mali.domain.entity.json.ItemEntity;
+import uk.co.mali.data.FlickrApplication;
 import uk.co.mali.flickrtest.R;
+import uk.co.mali.flickrtest.injector.component.DaggerPresenterComponent;
+import uk.co.mali.flickrtest.injector.module.PresenterModule;
 import uk.co.mali.flickrtest.presenter.Presenter;
 import uk.co.mali.flickrtest.view.IFlickrView;
 import uk.co.mali.flickrtest.view.adapter.FlickrRecyclerAdapter;
@@ -33,9 +38,8 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
     private final static String TAG = FlickrListActivity.class.getSimpleName();
 
     RecyclerView Flickr_List;
-    private Presenter presenter;
-    String tag;
 
+    String tag;
 
     @BindView(R.id.rv_ListFlickrImages)
     RecyclerView recyclerView;
@@ -46,9 +50,10 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
 
     FlickrRecyclerAdapter adapter;
 
-
     List<ItemEntity> Item_List = new ArrayList<>();
 
+    @Inject
+    Presenter presenter;
     public FlickrListActivity(){
 
     }
@@ -62,9 +67,27 @@ public class FlickrListActivity extends BaseActivity implements IFlickrView{
     @Override
     public void initComponents() {
 
-        presenter = new Presenter();
-        presenter.setFlickrView(this);
-       // presenter.initialize();
+       DaggerPresenterComponent.builder()
+                .appComponent(FlickrApplication.getAppComponent())
+                .presenterModule(new PresenterModule())
+                .build()
+                .inject(this);
+
+
+
+       // flickrView = this;
+     //   presenter = new Presenter();
+        if(presenter!=null){
+            Log.d(TAG,"Presenter is not Null");
+            presenter.setFlickrView(this);
+
+        }
+
+        else{
+            Log.e(TAG,"Presenter is Null");
+        }
+
+        //presenter.initialize();
 
     }
 
