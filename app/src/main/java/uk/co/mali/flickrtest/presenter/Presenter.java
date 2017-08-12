@@ -20,7 +20,6 @@ public class Presenter implements IPresenter {
     private String searchByTag;
 
 
-
     //private ArrayList<ItemEntity> List_Items = new ArrayList<>();
 
 
@@ -65,8 +64,9 @@ public class Presenter implements IPresenter {
             public void onNext(DataEntity dataEntity) {
                 //Log.d(TAG,"Entity DataRealm: "+dataEntity.getTitle());
                 //Log.d(TAG, "Record: Size: Link: "+dataEntity.getItemEntities().size()+" Items : "+dataEntity.getItemEntities().get(0).getLink());
-                iFlickrView.showFlickrListInView(dataEntity);
-
+                if(iFlickrView!=null) {
+                    iFlickrView.showFlickrListInView(dataEntity);
+                }
 
             }
 
